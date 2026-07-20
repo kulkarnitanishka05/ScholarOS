@@ -1,0 +1,56 @@
+# ===============================
+# ScholarOS Requirements
+# ===============================
+
+# FastAPI Backend
+fastapi
+uvicorn
+python-multipart
+pydantic
+
+# Environment Variables
+python-dotenv
+
+# LangChain
+langchain
+langchain-community
+langchain-text-splitters
+
+# Embeddings
+sentence-transformers
+transformers
+
+# Deep Learning
+torch
+
+# Vector Database
+faiss-cpu
+
+# PDF Processing
+PyMuPDF
+pypdf
+pdfplumber
+
+# NLP
+nltk
+spacy
+
+# Data Processing
+numpy
+pandas
+
+# Utilities
+tqdm
+
+# LLM (Groq)
+groq
+
+# HTTP Requests
+requests
+
+# Serialization
+joblib
+
+# Optional (Future Extensions)
+scikit-learn
+accelerate
