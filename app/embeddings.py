@@ -73,13 +73,7 @@ class EmbeddingModel:
         return embeddings
 
     def embedding_dimension(self):
-        """
-        Returns embedding vector dimension.
-        """
-
-        sample = self.embed_text("ScholarOS")
-
-        return len(sample)
+        return self.model.get_sentence_embedding_dimension()
 
     def similarity(self, embedding1, embedding2):
         """

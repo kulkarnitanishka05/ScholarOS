@@ -19,7 +19,17 @@ from app.rag import RAGPipeline
 
 router = APIRouter()
 
-rag = RAGPipeline()
+rag = None
+
+def get_rag():
+    global rag
+
+    if rag is None:
+        print("Loading ScholarOS RAG Pipeline...")
+
+        rag = RAGPipeline()
+
+    return rag
 
 UPLOAD_FOLDER = "uploads"
 
@@ -68,7 +78,7 @@ async def upload_pdf(file: UploadFile = File(...)):
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
-    result = rag.index_document(file_path)
+    result = get_rag().index_document(file_path)
 
     return result
 
@@ -84,7 +94,7 @@ def list_documents():
     """
 
     return {
-        "documents": rag.list_documents()
+        "documents": get_rag().list_documents()
     }
 
 # ==========================
@@ -130,7 +140,7 @@ def ask_question(request: QuestionRequest):
     Ask a question about indexed documents.
     """
 
-    return rag.ask(
+    return get_rag().ask(
         question=request.question,
         top_k=request.top_k
     )
@@ -157,7 +167,7 @@ def summarize_document(request: SummaryRequest):
             detail="Document not found."
         )
 
-    return rag.summarize_document(pdf_path)
+    return get_rag().summarize_document(pdf_path)
 
 
 # ==========================
@@ -192,7 +202,7 @@ def compare_documents(request: CompareRequest):
             detail=f"{request.file2} not found."
         )
 
-    return rag.compare_documents(
+    return get_rag().compare_documents(
         pdf1,
         pdf2
     )
@@ -208,7 +218,7 @@ def database_information():
     Return database statistics.
     """
 
-    return rag.database_info()
+    return get_rag().database_info()
 
 
 # ==========================
@@ -221,4 +231,4 @@ def clear_database():
     Delete all indexed vectors.
     """
 
-    return rag.clear_database()
+    return get_rag().clear_database()
