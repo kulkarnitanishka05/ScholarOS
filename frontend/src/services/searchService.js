@@ -1,7 +1,9 @@
-const API = "http://127.0.0.1:8000";
+const API = import.meta.env.DEV
+  ? "http://127.0.0.1:8000"
+  : "";
 
 export async function getDocuments() {
-  const response = await fetch(`${API}/documents`);
+  const response = await fetch(`${API}/api/documents`);
 
   if (!response.ok) {
     throw new Error("Failed to fetch documents");

@@ -1,12 +1,16 @@
 import axios from "axios";
 
+const API = import.meta.env.DEV
+  ? "http://127.0.0.1:8000"
+  : "";
+
 const api = axios.create({
-  baseURL: "http://127.0.0.1:8000",
+  baseURL: API,
 });
 
 // Dashboard
 export const getDatabaseInfo = async () => {
-  const response = await api.get("/database");
+  const response = await api.get("/api/database");
   return response.data;
 };
 
@@ -15,7 +19,7 @@ export const uploadPDF = async (file, onUploadProgress) => {
   const formData = new FormData();
   formData.append("file", file);
 
-  const response = await api.post("/upload", formData, {
+  const response = await api.post("/api/upload", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -27,13 +31,13 @@ export const uploadPDF = async (file, onUploadProgress) => {
 
 // Documents
 export const getDocuments = async () => {
-  const response = await api.get("/documents");
+  const response = await api.get("/api/documents");
   return response.data;
 };
 
 // Chat
 export const askQuestion = async (question) => {
-  const response = await api.post("/ask", {
+  const response = await api.post("/api/ask", {
     question,
     top_k: 5,
   });
@@ -43,7 +47,7 @@ export const askQuestion = async (question) => {
 
 // Summary
 export const summarizeDocument = async (filename) => {
-  const response = await api.post("/summary", {
+  const response = await api.post("/api/summary", {
     filename,
   });
 
@@ -52,7 +56,7 @@ export const summarizeDocument = async (filename) => {
 
 // Compare
 export const compareDocuments = async (file1, file2) => {
-  const response = await api.post("/compare", {
+  const response = await api.post("/api/compare", {
     file1,
     file2,
   });

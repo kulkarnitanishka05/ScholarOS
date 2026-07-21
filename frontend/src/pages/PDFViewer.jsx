@@ -22,7 +22,9 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   import.meta.url
 ).toString();
 
-const API = "http://127.0.0.1:8000";
+const API = import.meta.env.DEV
+  ? "http://127.0.0.1:8000"
+  : "";
 
 export default function PDFViewer() {
   const navigate = useNavigate();
@@ -65,7 +67,7 @@ export default function PDFViewer() {
   setError("");
 
   setFileUrl(
-    `${API}/pdf/${encodeURIComponent(filename)}`
+    `${API}/api/pdf/${encodeURIComponent(filename)}`
   );
   }, [filename]);
 
