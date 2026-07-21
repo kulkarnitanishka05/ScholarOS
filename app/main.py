@@ -41,6 +41,12 @@ if FRONTEND_DIST.exists():
         name="assets",
     )
 
+    app.mount(
+        "/favicon.svg",
+        StaticFiles(directory=FRONTEND_DIST),
+        name="favicon",
+    )
+
     @app.get("/{full_path:path}")
     async def serve_react(full_path: str):
 
